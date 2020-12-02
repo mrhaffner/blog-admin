@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 const PostTeaser = (props) => {
     const { title, date, hyphenTitle, isPublished, id, setIsLoading } = props;
-
-    // const [published, setPublished] = useState(null)
-
-    // useEffect(() => {
-        
-    // }, [published])
-
-    //const buttonDisplay = () => isPublished ? 'Unpublish Post' : 'Publish Post'
 
     const handlePublish = async (e) => {
         e.preventDefault()
@@ -29,7 +21,6 @@ const PostTeaser = (props) => {
         } catch (err) {
             console.log('error:', err)
         }
-        //update a state somewhere to rerender post/s
     }
 
     return (

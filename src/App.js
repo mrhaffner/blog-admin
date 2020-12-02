@@ -3,6 +3,8 @@ import NavBar from './components/NavBar';
 import BlogsPage from './components/BlogsPage';
 import LogIn from './components/LogIn';
 import PostPage from './components/PostPage';
+import NewPost from './components/NewPost';
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
@@ -40,6 +42,9 @@ const App = () => {
       <div>
         <NavBar />
         <Switch>
+          <Route path='/new'>
+            <NewPost setIsLoading={setIsLoading} />
+          </Route>
           <Route path='/blog/:hyphenTitle' 
             render={() => {
               return ( isLoading ? <h2>Loading Page</h2> : <PostPage posts={posts} />)
