@@ -6,23 +6,24 @@ import PostPage from './components/PostPage';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
-  const [posts, setPosts] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [posts, setPosts] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const hyphenate = (str) => {
       return str.toLowerCase().split(' ').join('-')
-    }
+    };
   
     const addHyphenTitle = (arr) => {
       arr.forEach((obj) => {
         obj.hyphenTitle = hyphenate(obj.title)
       })
-    }
+    };
+
     const getPosts = async () => {
       try {
         //set isLoading to true?
-        const response = await fetch('http://localhost:3000/blog', {method: 'GET', mode: 'cors'})
+        const response = await fetch('http://localhost:3000/blog/all', {method: 'GET', mode: 'cors'})
         const data = await response.json()
         addHyphenTitle(data)
         setPosts(data.reverse())
@@ -30,9 +31,10 @@ const App = () => {
       } catch (err) {
         console.log(err)
       }
-    }
+    };
     getPosts()
-  }, [])
+  }, [isLoading]);
+
   return (
     <Router>
       <div>
@@ -44,7 +46,7 @@ const App = () => {
             }}>
           </Route>
           <Route path='/blog'>
-            <BlogsPage posts={posts} isLoading={isLoading} />
+            <BlogsPage posts={posts} isLoading={isLoading} setIsLoading={setIsLoading} />
           </Route>
           <Route path='/'>
             <LogIn />
