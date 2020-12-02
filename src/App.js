@@ -47,7 +47,7 @@ const App = () => {
           </Route>
           <Route path='/blog/:hyphenTitle' 
             render={() => {
-              return ( isLoading ? <h2>Loading Page</h2> : <PostPage posts={posts} />)
+              return ( isLoading ? <h2>Loading Page</h2> : <PostPage posts={posts} setIsLoading={setIsLoading} />)
             }}>
           </Route>
           <Route path='/blog'>
