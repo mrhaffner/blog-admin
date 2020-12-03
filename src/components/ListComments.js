@@ -10,6 +10,7 @@ const ListComments = (props) => {
             const response = await fetch(`http://localhost:3000/blog/${postId}/comment/${comment['_id']}`, {
                 method: 'DELETE',
                 mode: 'cors',
+                headers: { Authorization: `JWT ${localStorage.getItem('JWT')}`},
             })
             const data = await response;
             console.log('response:', data);

@@ -11,7 +11,10 @@ const Comments = (props) => {
         const getComments = async () => {
           try {
             //set isLoading to true?
-            const response = await fetch('http://localhost:3000/blog/comments', {method: 'GET', mode: 'cors'})
+            const response = await fetch('http://localhost:3000/blog/comments', {
+              method: 'GET', 
+              mode: 'cors',
+            })
             const data = await response.json()
             console.log(data)
             setComments(data)

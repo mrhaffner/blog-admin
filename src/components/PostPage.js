@@ -22,13 +22,14 @@ const PostPage = (props) => {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `JWT ${localStorage.getItem('JWT')}`,
                 },
                 body: JSON.stringify({ title, text }),
             })
             const data = await response;
             console.log('response:', data);
             setIsLoading(true);
-            history.push('/blog');
+            history.push(`/blog`);
         } catch (err) {
             console.log('error:', err)
         }
@@ -40,6 +41,7 @@ const PostPage = (props) => {
             const response = await fetch(`http://localhost:3000/blog/${post['_id']}/delete`, {
                 method: 'DELETE',
                 mode: 'cors',
+                Authorization: `JWT ${localStorage.getItem('JWT')}`,
             })
             const data = await response;
             console.log('response:', data);
@@ -49,10 +51,6 @@ const PostPage = (props) => {
             console.log('error:', err)
         }
     };
-
-    //need to make Comments componenets
-    //handleDelete needs to delete all comments associated with that post
-        //looks like the backend should do this, but does it work?
 
     return (
         <div>

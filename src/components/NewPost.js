@@ -18,6 +18,7 @@ const NewPost = (props) => {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `JWT ${localStorage.getItem('JWT')}`
                 },
                 body: JSON.stringify({ title, text }),
             })

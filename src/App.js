@@ -10,32 +10,33 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const App = () => {
   const [posts, setPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false)
 
-  useEffect(() => {
-    const hyphenate = (str) => {
-      return str.toLowerCase().split(' ').join('-')
-    };
+  // useEffect(() => {
+  //   const hyphenate = (str) => {
+  //     return str.toLowerCase().split(' ').join('-')
+  //   };
   
-    const addHyphenTitle = (arr) => {
-      arr.forEach((obj) => {
-        obj.hyphenTitle = hyphenate(obj.title)
-      })
-    };
+  //   const addHyphenTitle = (arr) => {
+  //     arr.forEach((obj) => {
+  //       obj.hyphenTitle = hyphenate(obj.title)
+  //     })
+  //   };
 
-    const getPosts = async () => {
-      try {
-        //set isLoading to true?
-        const response = await fetch('http://localhost:3000/blog/all', {method: 'GET', mode: 'cors'})
-        const data = await response.json()
-        addHyphenTitle(data)
-        setPosts(data.reverse())
-        setIsLoading(false)
-      } catch (err) {
-        console.log(err)
-      }
-    };
-    getPosts()
-  }, [isLoading]);
+  //   const getPosts = async () => {
+  //     try {
+  //       //set isLoading to true?
+  //       const response = await fetch('http://localhost:3000/blog/all', {method: 'GET', mode: 'cors'})
+  //       const data = await response.json()
+  //       addHyphenTitle(data)
+  //       setPosts(data.reverse())
+  //       setIsLoading(false)
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   };
+  //   getPosts()
+  // }, [isLoading]);
 
   return (
     <Router>
@@ -51,10 +52,10 @@ const App = () => {
             }}>
           </Route>
           <Route path='/blog'>
-            <BlogsPage posts={posts} isLoading={isLoading} setIsLoading={setIsLoading} />
+            <BlogsPage posts={posts} isLoading={isLoading} setIsLoading={setIsLoading} setPosts={setPosts} />
           </Route>
           <Route path='/'>
-            <LogIn />
+            <LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           </Route>
         </Switch>
       </div>
