@@ -5,7 +5,7 @@ import LogIn from './components/LogIn';
 import PostPage from './components/PostPage';
 import NewPost from './components/NewPost';
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 const App = () => {
   const [posts, setPosts] = useState(null);
@@ -41,22 +41,44 @@ const App = () => {
   return (
     <Router>
       <div>
-        <NavBar />
+        {loggedIn ? <NavBar setLoggedIn={setLoggedIn} /> : null}
         <Switch>
-          <Route path='/new'>
-            <NewPost setIsLoading={setIsLoading} />
-          </Route>
-          <Route path='/blog/:hyphenTitle' 
+          <Route path='/new'
             render={() => {
-              return ( isLoading ? <h2>Loading Page</h2> : <PostPage posts={posts} setIsLoading={setIsLoading} />)
-            }}>
-          </Route>
-          <Route path='/blog'>
-            <BlogsPage posts={posts} isLoading={isLoading} setIsLoading={setIsLoading} setPosts={setPosts} />
-          </Route>
-          <Route path='/'>
-            <LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-          </Route>
+              return (
+                loggedIn 
+                  ? <NewPost setIsLoading={setIsLoading} />
+                  : <Redirect to='/'/>
+              )
+            }} 
+          />
+          <Route path='/blog:hyphenTitle'
+            render={() => {
+              return (
+                loggedIn 
+                  ? <PostPage posts={posts} setIsLoading={setIsLoading} isLoading={isLoading} />
+                  : <Redirect to='/'/>
+              )
+            }} 
+          />
+          <Route path='/blog'
+            render={() => {
+              return (
+                loggedIn 
+                  ? <BlogsPage posts={posts} isLoading={isLoading} setIsLoading={setIsLoading} setPosts={setPosts} />
+                  : <Redirect to='/'/>
+              )
+            }} 
+          />
+          <Route path='/'
+            render={() => {
+              return (
+                loggedIn 
+                  ? <Redirect to='/blog'/>
+                  : <LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+              )
+            }} 
+          />
         </Switch>
       </div>
     </Router>

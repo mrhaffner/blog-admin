@@ -1,16 +1,21 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-//if login true, logout, else logout?
-//necessary? should be redirected if not logged in
 //maybe Logout needs to be a button that runs a function on click to logout?
 
-const NavBar = () => {
+const NavBar = (props) => {
+    const { setLoggedIn } = props
+
+    const handleLogOut = (e) => {
+        e.preventDefault();
+        setLoggedIn(false);
+    }
+
     return (
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Logout</Link>
+                    <button onClick={handleLogOut} >Log Out</button>
                 </li>
                 <li>
                     <Link to="/blog">Blog</Link>
